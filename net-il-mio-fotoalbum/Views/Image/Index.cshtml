@@ -1,0 +1,78 @@
+﻿@using net_il_mio_fotoalbum.Models.Db_Models;
+@{
+    Layout = "_Layout";
+}
+
+@model List<Image>
+<div class="container p-5">
+    <div class="row">
+        <div class="col-12">
+
+            <h1 class="my-5 text-center ms_main_title">ECCO UNA LISTA DI TUTTE LE TUE FOTO</h1>
+
+            <a class="btn my_btn btn-sm mb-5" href="@Url.Action("Add", "Image")">
+                <i class="fa-solid fa-plus"></i> Aggiungi una nuova Foto
+            </a>
+            
+
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Titolo</th>
+                        <th scope="col">Descrizione</th>
+                        <th scope="col">Categorie</th>
+                        <th scope="col">Azioni</th>
+                        <th scope="col">Immagine</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Image image in Model)
+                    {
+                        <tr>
+                            <td scope="row">@image.Id</td>
+                            
+                            <td>@image.Title</td>
+                            <td>@image.Description</td>
+                            <td>
+                                @if (image.Categories != null && image.Categories.Count > 0)
+                                {
+                                    <ul class=" d-flex align-items-center list-unstyled">
+                                        @foreach (Category category in image.Categories)
+                                        {
+                                            <li class="me-1">
+                                                @category?.Title
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <span>Non ci sono ingredienti selezionati</span>
+                                }
+                            </td>
+                            <td>
+                                <a class="btn my_btn btn-sm" href="@Url.Action("Details", "Image", new { id = image.Id })">
+                                    <i class="fa-solid fa-info mx-1"></i>
+                                </a>
+                                <a class="btn update_btn btn-sm" href="@Url.Action("Update", "Image", new { id = image.Id })">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+                                <form asp-controller="Image" asp-action="Delete" asp-route-id="@image.Id" method="post" class="fake_form">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn del_btn btn-sm">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <img class="w-25" src="@image.Img" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

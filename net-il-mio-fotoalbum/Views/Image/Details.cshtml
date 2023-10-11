@@ -1,0 +1,37 @@
+﻿@using net_il_mio_fotoalbum.Models.Db_Models;
+@model Image
+
+<div class="details_container">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="col-lg-4 col-sm-12">
+                <div class="details_card">
+                    <div class="card-img">
+                        <img src="@Model.Img" />
+                    </div>
+                    <hr class="card-divider">
+                    <div class="card-title">@Model.Title</div>
+                    <p>
+                        <strong>Ingredienti:</strong>
+                        @if (Model.Categories != null && Model.Categories.Count > 0)
+                        {
+                            <ul class=" d-flex list-unstyled">
+                                @foreach (Category category in Model.Categories)
+                                {
+                                    <li class="me-1">
+                                        @category?.Title
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span>Non ci sono categorie selezionate</span>
+                        }
+                    </p>
+                    <div class="card-subtitle">@Model.Description.</div>
+                    <hr class="card-divider">
+                </div>
+            </div>
+        </div>
+    </div>

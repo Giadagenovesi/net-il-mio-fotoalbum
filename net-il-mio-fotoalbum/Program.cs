@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using net_il_mio_fotoalbum.Database;
 namespace net_il_mio_fotoalbum
 {
     public class Program
@@ -6,8 +9,18 @@ namespace net_il_mio_fotoalbum
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+            builder.Services.AddDbContext<PhotoBookContext>();
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<PhotoBookContext>();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //Dependency Injection
+            
+            builder.Services.AddScoped<PhotoBookContext, PhotoBookContext>();
 
             var app = builder.Build();
 
@@ -24,11 +37,15 @@ namespace net_il_mio_fotoalbum
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Image}/{action=Index}/{id?}");
+
+            app.MapRazorPages();
 
             app.Run();
         }
