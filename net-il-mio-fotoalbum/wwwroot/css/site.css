@@ -14,13 +14,14 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #F3F3F3;
 }
 
 /*LAYOUT*/
 header {
-    height: 90px;
-    font-size: 22px;
+    height: 100px;
+    font-size: 1rem;
     border-bottom: 3px solid black;
 }
 
@@ -28,20 +29,21 @@ header {
 
 .nav-link {
     color: black;
-}
-
-    .nav-link:hover {
-        color: green;
-    }
-
-.navbar-brand {
-    color: green;
-    font-weight: 500;
     font-size: 1.5rem;
 }
 
+    .nav-link:hover {
+        color: #284B63;
+    }
+
+.navbar-brand {
+    color: #284B63;
+    font-weight: 500;
+    font-size: 2.5rem;
+}
+
 a:hover {
-    color: #FFC978;
+    color: #999999;
 }
 
 .nav-item {
@@ -52,19 +54,37 @@ a:hover {
     color: black;
 }
 
+/*jumbotron*/
+.jumbotron {
+    height: 700px;
+    background-image: url(../img/jt.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.jt-logo {
+    background-color: #284b636e;
+    width: 100%;
+    height: 100%;
+    font-size: 3rem;
+    color: #CCCCCC;
+    font-weight: bold;
+    text-align: center;
+}
+
 /*Utility*/
 .my_btn {
-    background-color: #FFFEEF;
+    background-color: #FFFFFF;
     border: 2px solid gray;
 }
 
     .my_btn:hover {
-        color: blue;
-        border: 2px solid blue;
+        color: black;
+        border: 2px solid #284b636e;
     }
 
 .del_btn {
-    background-color: #FFFEEF;
+    background-color: #FFFFFF;
     border: 2px solid gray;
 }
 
@@ -74,7 +94,7 @@ a:hover {
     }
 
 .update_btn {
-    background-color: #FFFEEF;
+    background-color: #FFFFFF;
     border: 2px solid gray;
 }
 
@@ -92,39 +112,22 @@ a:hover {
     height: 70%
 }
 
-.card {
-    color: black;
-    background-color: #FFC978;
-    height: 100%;
-    border: 2px solid black;
-    box-shadow: 8px 8px grey;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 1rem;
-}
-
-
-    .card:last-child {
-        justify-content: flex-end;
-    }
 
 .card-img img {
-    border-radius: 15px;
     width: 100%;
-    height: 230px;
 }
 
 .card-title {
-    font-size: 25px;
+    font-size: 1.8rem;
     font-weight: 500;
     text-align: center;
-    color: #E80000;
+    color: #284B63;
 }
-
 .card-subtitle {
-    font-size: 13px;
+    font-size: 1.2rem;
+}
+.card_body{
+    padding: 2rem 1rem;
 }
 
 .card-divider {
@@ -140,11 +143,6 @@ a:hover {
     align-items: center;
 }
 
-.card-price {
-    font-size: 25px;
-    font-weight: 500;
-}
-
     .card-price span {
         font-size: 25px;
         font-weight: 500;
@@ -154,28 +152,68 @@ a:hover {
     transform: translateY(-3px);
 }
 
-.details-btn {
-    background-color: #e80000c9;
-    color: wheat;
-}
 
-/*DETTAGLI PAGE*/
+/*HOME PAGE - CARD*/
+
+.ms_main_title {
+    color: #284B63;
+    font-size: 5rem;
+}
 .details_container {
-    border-top: 3px solid #E80000;
-    border-bottom: 3px solid #E80000;
     padding: 4rem 0;
-    background-color: #FFE1AA;
 }
 
 .details_card {
+    background-color: #FFFFFF;
     color: black;
-    background-color: #FFFEEF;
-    border: 3px solid #E80000;
-    box-shadow: 15px 15px #FFC978;
-    border-radius: 20px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 20px;
     gap: 10px;
+}
+
+/*SPINNER*/
+
+.loader {
+    display: flex;
+    align-items: center;
+}
+
+.bar {
+    display: inline-block;
+    width: 3px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, .9);
+    border-radius: 10px;
+    animation: scale-up4 1s linear infinite;
+}
+
+    .bar:nth-child(2) {
+        height: 35px;
+        margin: 0 5px;
+        animation-delay: .25s;
+    }
+
+    .bar:nth-child(3) {
+        animation-delay: .5s;
+    }
+
+@keyframes scale-up4 {
+    20% {
+        background-color: #ffff;
+        transform: scaleY(1.5);
+    }
+
+    40% {
+        transform: scaleY(1);
+    }
+}
+
+/*send Messages*/
+.my_form_container {
+    border:3px solid lightgray;
+    margin: 4rem auto;
+    padding:5rem 2rem;
 }

@@ -7,12 +7,14 @@ namespace net_il_mio_fotoalbum.Models
     {
         
         public Image Image { get; set; }
+
+        public IFormFile? ImageFormFile { get; set; }
        
 
         //Gestisco le proprietà  per gestire la select multipla nelle view
         public List<SelectListItem>? Categories { get; set; }
         public List<string>? SelectedCategoriesId { get; set; }
 
-
+        
     }
 }

@@ -2,12 +2,19 @@
     Layout = "_Layout";
 }
 
+
+<div class="jumbotron d-flex align-items-center">
+    <div class="jt-logo d-flex align-items-center justify-content-center">
+        MY PHOTO BLOG
+    </div>
+</div>
+
 <div class="container py-5">
     <hr />
 
     <div class="row pb-5">
 
-        <h1 class="py-3 text-center ms_main_title">Il Nostro Menù</h1>
+        <h1 class="py-3 text-center ms_main_title">TUTTE LE FOTOGRAFIE</h1>
 
         <div class="row">
             <div class="col-12">
@@ -18,8 +25,12 @@
         </div>
 
         <div id="loading-spinner" class="row ">
+
             <div class="col-12 d-flex justify-content-center mb-3">
-                <div class="spinner-border" role="status">
+                <div class="loader">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
                 </div>
             </div>
             <p class="text-center">Sto cercando le foto disponibili</p>
@@ -36,7 +47,11 @@
         </div>
     </div>
     <hr />
+
+    <a class="btn my_btn" asp-controller="Message" asp-action="SendMessage"> Invia un messaggio</a>
 </div>
+
+
 
 @section Scripts {
     <script type="text/javascript">
@@ -78,16 +93,18 @@
 
                         listOfImagesElement.innerHTML +=
                             `
-                                <div class="col-lg-4 col-sm-12">
+                                <div class="col-lg-4 col-sm-12 g-4">
                                     <div class="details_card">
                                         <div class="card-img">
-                                            <img src="${image.img}" />
+                                            <img src="${image.imageSrc}" />
                                         </div>
-                                        <hr class="card-divider">
-                                        <div class="card-title">${image.title}</div>
-                                        <p>${image.categories.map(category => category.title)}
-                                        <div class="card-subtitle">${image.description}.</div>
-                                        <hr class="card-divider">
+                                        <div class="card_body">
+                                            <hr class="card-divider">
+                                            <div class="card-title">${image.title}</div>
+                                            <p class="card-subtitle">${image.categories.map(category => category.title).join(" - ")}
+                                            <div class="card-subtitle">${image.description}.</div>
+                                            <hr class="card-divider">
+                                        <div/>
                                     </div>
                                 </div>
 
@@ -123,10 +140,10 @@
 
                         listOfImagesElement.innerHTML +=
                             `
-                                        <div class="col-lg-4 col-sm-12">
+                                        <div class="col-lg-4 col-sm-12 g-4">
                                             <div class="details_card">
                                                 <div class="card-img">
-                                                    <img src="${image.img}" />
+                                                    <img src="${image.imageSrc}" />
                                                 </div>
                                                 <hr class="card-divider">
                                                 <div class="card-title">${image.title}</div>
@@ -141,5 +158,7 @@
                 }
             })
         }
+
+            
     </script>
 }

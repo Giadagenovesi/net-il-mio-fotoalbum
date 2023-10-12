@@ -12,10 +12,13 @@ namespace net_il_mio_fotoalbum.Models.Db_Models
 
         [Required(ErrorMessage = "L'immagine deve per forza avere una descrizione")]
         public string Description { get; set; }
-
-        public string Img { get; set; }
-
         public bool IsVisible { get; set; }
+        public string? ImageUrl { get; set; }
+
+        public byte[]? ImageFile { get; set; }
+
+        public string ImageSrc => ImageFile is null ? (ImageUrl is null ? "" : ImageUrl) : $"data:image/png;base64, {Convert.ToBase64String(ImageFile)}";
+
 
         // Creiamo la relazione N:N con le categorie
         public List<Category>? Categories { get; set; }
@@ -24,11 +27,11 @@ namespace net_il_mio_fotoalbum.Models.Db_Models
         
         }
 
-        public Image(string title, string description, string img) 
+        public Image(string title, string description, string image) 
         { 
             this.Title = title;
             this.Description = description;
-            this.Img = img;
+            this.ImageUrl = image;
         }
 
     }

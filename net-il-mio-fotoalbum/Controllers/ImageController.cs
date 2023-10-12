@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.SqlServer.Server;
 using net_il_mio_fotoalbum.Database;
 using net_il_mio_fotoalbum.Models;
 using net_il_mio_fotoalbum.Models.Db_Models;
@@ -97,6 +98,8 @@ namespace net_il_mio_fotoalbum.Controllers
                 }
             }
 
+            this.SetImageFileFromFile(data);
+
             _myDatabase.Images.Add(data.Image);
             _myDatabase.SaveChanges();
 
@@ -168,8 +171,7 @@ namespace net_il_mio_fotoalbum.Controllers
             if (imageToUpdate != null)
             {
                 imageToUpdate.Categories.Clear();
-
-                imageToUpdate.Img = data.Image.Img;
+                imageToUpdate.ImageUrl = data.Image.ImageUrl;
                 imageToUpdate.Title = data.Image.Title;
                 imageToUpdate.Description = data.Image.Description;
                 
@@ -189,6 +191,13 @@ namespace net_il_mio_fotoalbum.Controllers
                             imageToUpdate.Categories.Add(categoryInDb);
                         }
                     }
+                }
+
+                if (data.ImageFormFile != null)
+                {
+                    MemoryStream stream = new MemoryStream();
+                    data.ImageFormFile.CopyTo(stream);
+                    imageToUpdate.ImageFile = stream.ToArray(); 
                 }
 
                 _myDatabase.SaveChanges();
@@ -222,6 +231,20 @@ namespace net_il_mio_fotoalbum.Controllers
             {
                 return View("NotFoundPage");
             }
+        }
+
+
+        //Metodo per gestione file immagini
+        private void SetImageFileFromFile(ImageFormModel formData)
+        {
+            if(formData.ImageFormFile == null)
+            {
+                return;
+            }
+
+            MemoryStream stream = new MemoryStream();
+            formData.ImageFormFile.CopyTo(stream);
+            formData.Image.ImageFile = stream.ToArray();
         }
     }
 }

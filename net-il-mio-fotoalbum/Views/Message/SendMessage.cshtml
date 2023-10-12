@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "_Layout";
+}
+<div class="container my_form_container">
+
+    <h2>Invia un messaggio</h2>
+    <form id="message-form">
+        <div class="form-part">
+            <label class="form-label" for="email">Email:</label>
+            <input class="form-control" id="email" />
+            <span id="email-errors" class="text-error"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="text">Messaggio:</label>
+            <input class="form-control" id="text" />
+            <span id="textMessage-errors" class="text-error"></span>
+        </div>
+        <button class="btn my_btn" type="submit">Invia</button>
+    </form>
+
+</div>
