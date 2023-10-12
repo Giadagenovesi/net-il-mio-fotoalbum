@@ -1,8 +1,145 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-5">
+    <hr />
+
+    <div class="row pb-5">
+
+        <h1 class="py-3 text-center ms_main_title">Il Nostro Menù</h1>
+
+        <div class="row">
+            <div class="col-12">
+                <div>
+                    <input id="search_image" type="text" class="form-control my-3" placeholder="Cerca la foto che desideri">
+                </div>
+            </div>
+        </div>
+
+        <div id="loading-spinner" class="row ">
+            <div class="col-12 d-flex justify-content-center mb-3">
+                <div class="spinner-border" role="status">
+                </div>
+            </div>
+            <p class="text-center">Sto cercando le foto disponibili</p>
+        </div>
+
+        <div id="row-no-images" class="row d-none">
+            <div class="col-12">
+                Nessuna foto trovata!
+            </div>
+        </div>
+
+        <div id="list-of-images" class="row d-none">
+            <!-- questo contenitore verrà usato per mostrare le immagini trovate -->
+        </div>
+    </div>
+    <hr />
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        allImagesList();
+
+        document.getElementById("search_image").addEventListener('keyup', showResultByTitle);
+
+        function showResultByTitle() {
+            let searchString = document.getElementById("search_image").value;
+
+            if (searchString.length > 0) {
+                searchImages(searchString);
+
+            } else {
+                allImagesList();
+            }
+        }
+        function allImagesList() {
+            axios.get('/api/Images/GetImages').then((resp) => {
+
+                console.log(resp);
+                let rowNoImages = document.getElementById("row-no-images");
+                let loadingSpinnerElement = document.getElementById("loading-spinner");
+                let listOfImagesElement = document.getElementById("list-of-images");
+
+                if (resp.data.length == 0) {
+                    rowNoImages.classList.remove("d-none");
+                    loadingSpinnerElement.classList.add("d-none");
+                } else {
+
+                    loadingSpinnerElement.classList.add("d-none");
+                    listOfImagesElement.classList.remove("d-none");
+
+                    listOfImagesElement.innerHTML = "";
+
+                    resp.data.forEach(image => {
+                        console.log(image);
+
+                        listOfImagesElement.innerHTML +=
+                            `
+                                <div class="col-lg-4 col-sm-12">
+                                    <div class="details_card">
+                                        <div class="card-img">
+                                            <img src="${image.img}" />
+                                        </div>
+                                        <hr class="card-divider">
+                                        <div class="card-title">${image.title}</div>
+                                        <p>${image.categories.map(category => category.title)}
+                                        <div class="card-subtitle">${image.description}.</div>
+                                        <hr class="card-divider">
+                                    </div>
+                                </div>
+
+                            `
+                    });
+                }
+            })
+        }
+
+        function searchImages(userSearch) {
+            axios.get('/api/Images/GetImagesByTitle', {
+                params: {
+                    research:userSearch
+                }
+            }).then((resp)=> {
+
+                console.log(resp);
+                let rowNoImages = document.getElementById("row-no-images");
+                let loadingSpinnerElement = document.getElementById("loading-spinner");
+                let listOfImagesElement = document.getElementById("list-of-images");
+
+                if (resp.data.length == 0) {
+                    rowNoImages.classList.remove("d-none");
+                    loadingSpinnerElement.classList.add("d-none");
+                } else {
+                    loadingSpinnerElement.classList.add("d-none");
+                    listOfImagesElement.classList.remove("d-none");
+
+                    listOfImagesElement.innerHTML = "";
+
+                    resp.data.forEach(image => {
+                        console.log(image);
+
+                        listOfImagesElement.innerHTML +=
+                            `
+                                        <div class="col-lg-4 col-sm-12">
+                                            <div class="details_card">
+                                                <div class="card-img">
+                                                    <img src="${image.img}" />
+                                                </div>
+                                                <hr class="card-divider">
+                                                <div class="card-title">${image.title}</div>
+                                                <p>${image.categories.map(category => category.title)}
+                                                <div class="card-subtitle">${image.description}.</div>
+                                                <hr class="card-divider">
+                                            </div>
+                                        </div>
+
+                            `
+                    });
+                }
+            })
+        }
+    </script>
+}

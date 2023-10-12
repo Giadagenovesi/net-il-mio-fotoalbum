@@ -17,6 +17,41 @@ body {
   margin-bottom: 60px;
 }
 
+/*LAYOUT*/
+header {
+    height: 90px;
+    font-size: 22px;
+    border-bottom: 3px solid black;
+}
+
+/*HEADER*/
+
+.nav-link {
+    color: black;
+}
+
+    .nav-link:hover {
+        color: green;
+    }
+
+.navbar-brand {
+    color: green;
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+a:hover {
+    color: #FFC978;
+}
+
+.nav-item {
+    font-size: 1rem;
+}
+
+.navbar-toggler-icon {
+    color: black;
+}
+
 /*Utility*/
 .my_btn {
     background-color: #FFFEEF;
@@ -61,8 +96,8 @@ body {
     color: black;
     background-color: #FFC978;
     height: 100%;
-    border: 2px solid #E80000;
-    box-shadow: 8px 8px #e80000a3;
+    border: 2px solid black;
+    box-shadow: 8px 8px grey;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
