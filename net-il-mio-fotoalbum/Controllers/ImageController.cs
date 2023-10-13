@@ -23,7 +23,7 @@ namespace net_il_mio_fotoalbum.Controllers
             return View("Index", images);
         }
 
-
+        //SEARCH
         public IActionResult Filter(string userSearch)
         {
             List<Image> images;
