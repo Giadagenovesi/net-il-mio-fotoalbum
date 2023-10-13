@@ -145,11 +145,13 @@
                                                 <div class="card-img">
                                                     <img src="${image.imageSrc}" />
                                                 </div>
-                                                <hr class="card-divider">
-                                                <div class="card-title">${image.title}</div>
-                                                <p>${image.categories.map(category => category.title)}
-                                                <div class="card-subtitle">${image.description}.</div>
-                                                <hr class="card-divider">
+                                                <div class="card_body">
+                                                    <hr class="card-divider">
+                                                    <div class="card-title">${image.title}</div>
+                                                    <p class="card-subtitle">${image.categories.map(category => category.title).join(" - ")}
+                                                    <div class="card-subtitle">${image.description}.</div>
+                                                    <hr class="card-divider">
+                                                <div/>
                                             </div>
                                         </div>
 

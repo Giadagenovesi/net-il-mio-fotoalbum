@@ -9,5 +9,14 @@ namespace net_il_mio_fotoalbum.Models.Db_Models
 
         [Required(ErrorMessage = "Inserire il testo del messaggio")]
         public string TextMessage { get; set; }
+
+        public Message() { 
+        }
+        public Message(int id, string email, string textMessage)
+        {
+            this.Id = id;
+            this.Email = email;
+            this.TextMessage = textMessage;
+        }
     }
 }

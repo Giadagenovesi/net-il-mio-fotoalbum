@@ -5,17 +5,51 @@
 
     <h2>Invia un messaggio</h2>
     <form id="message-form">
-        <div class="form-part">
+        <div class="form-group">
             <label class="form-label" for="email">Email:</label>
-            <input class="form-control" id="email" />
+            <input class="form-control" type="email" id="email" name="email" placeholder="prova@prova.com" />
             <span id="email-errors" class="text-error"></span>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="text">Messaggio:</label>
-            <input class="form-control" id="text" />
-            <span id="textMessage-errors" class="text-error"></span>
+        <div class=" form-group mb-3">
+            <label class="form-label" for="textmessage">Messaggio:</label>
+            <textarea class="form-control" rows="5" id="textmessage"></textarea>
         </div>
-        <button class="btn my_btn" type="submit">Invia</button>
+        <button class="btn my_btn" type="submit" onclick="newMessage()">Invia</button>
     </form>
-
 </div>
+@section Scripts {
+    <script>
+        
+
+        function newMessage() {
+            let email = document.getElementById('email').value;
+            let textmessage = document.getElementById('textmessage').value;
+
+            if (!email || !textmessage) {
+                alert('Insert Email and message');
+                return;
+            }
+
+            let apiUrl = `/api/Messages/SaveMessage`;
+
+            const jsonData = {
+                email: email,
+                textMessage: textmessage,
+            };
+
+            axios.post(apiUrl, jsonData)
+                .then(function (response) {
+                    console.log(response.data);
+                    alert('Message send with success!');
+
+                    document.getElementById('email').value = '';
+                    document.getElementById('textmessage').value = '';
+                })
+                .catch(function (error) {
+                    alert('Error! Message not delivered');
+                    console.error(error);
+                });
+        }
+
+    </script>
+}

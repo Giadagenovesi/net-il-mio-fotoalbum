@@ -18,10 +18,15 @@ namespace net_il_mio_fotoalbum.Controllers.API
 
         [HttpPost]
 
-        public IActionResult SendMessage([FromBody]Message message)
+        public IActionResult SaveMessage([FromBody]Message message)
         {
-            _myDb.Add(message);
+            if(message == null)
+            {
+                return BadRequest("Dati non validi");
+            }
+            _myDb.Messages.Add(message);
             _myDb.SaveChanges();
+
             return Ok(message);
         }
     }
