@@ -14,14 +14,15 @@
             <label class="form-label" for="textmessage">Messaggio:</label>
             <textarea class="form-control" rows="5" id="textmessage"></textarea>
         </div>
-        <button class="btn my_btn" type="submit" onclick="newMessage()">Invia</button>
+        <button class="btn my_btn" type="submit" onclick="newMessage(event)">Invia</button>
     </form>
 </div>
 @section Scripts {
     <script>
         
 
-        function newMessage() {
+        function newMessage(e) {
+            e.preventDefault();
             let email = document.getElementById('email').value;
             let textmessage = document.getElementById('textmessage').value;
 
@@ -30,25 +31,25 @@
                 return;
             }
 
-            let apiUrl = `/api/Messages/SaveMessage`;
-
+            let apiUrl = `/api/Messages/SaveMessage`
             const jsonData = {
-                email: email,
-                textMessage: textmessage,
+                Email: email,
+                TextMessage: textmessage,
             };
 
             axios.post(apiUrl, jsonData)
+                .catch(function (error) {
+                   
+                    console.error(error);
+                })
                 .then(function (response) {
+                    
                     console.log(response.data);
                     alert('Message send with success!');
 
                     document.getElementById('email').value = '';
                     document.getElementById('textmessage').value = '';
-                })
-                .catch(function (error) {
-                    alert('Error! Message not delivered');
-                    console.error(error);
-                });
+                });    
         }
 
     </script>

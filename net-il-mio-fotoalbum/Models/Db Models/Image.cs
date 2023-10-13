@@ -12,7 +12,7 @@ namespace net_il_mio_fotoalbum.Models.Db_Models
 
         [Required(ErrorMessage = "L'immagine deve per forza avere una descrizione")]
         public string Description { get; set; }
-        public bool IsVisible { get; set; }
+        public bool IsVisible { get; set; } = true;
         public string? ImageUrl { get; set; }
 
         public byte[]? ImageFile { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using net_il_mio_fotoalbum.Database;
@@ -8,6 +9,7 @@ namespace net_il_mio_fotoalbum.Controllers.API
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    
     public class ImagesController : ControllerBase
     {
 

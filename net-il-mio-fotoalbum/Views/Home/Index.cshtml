@@ -14,12 +14,15 @@
 
     <div class="row pb-5">
 
-        <h1 class="py-3 text-center ms_main_title">TUTTE LE FOTOGRAFIE</h1>
+        <h1 class="py-3 ms_main_title">MY PHOTO</h1>
 
         <div class="row">
             <div class="col-12">
                 <div>
                     <input id="search_image" type="text" class="form-control my-3" placeholder="Cerca la foto che desideri">
+                </div>
+                <div>
+                    <a class="btn my_btn" asp-controller="Message" asp-action="SendMessage"> Invia un messaggio</a>
                 </div>
             </div>
         </div>
@@ -47,8 +50,6 @@
         </div>
     </div>
     <hr />
-
-    <a class="btn my_btn" asp-controller="Message" asp-action="SendMessage"> Invia un messaggio</a>
 </div>
 
 
@@ -93,7 +94,7 @@
 
                         listOfImagesElement.innerHTML +=
                             `
-                                <div class="col-lg-4 col-sm-12 g-4">
+                                <div class="col-lg-4 col-md-6 col-sm-12 g-4">
                                     <div class="details_card">
                                         <div class="card-img">
                                             <img src="${image.imageSrc}" />

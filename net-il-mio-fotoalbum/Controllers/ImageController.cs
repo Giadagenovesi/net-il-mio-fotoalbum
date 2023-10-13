@@ -9,6 +9,7 @@ using net_il_mio_fotoalbum.Models.Db_Models;
 
 namespace net_il_mio_fotoalbum.Controllers
 {
+    [Authorize(Roles = "ADMIN,USER")]
     public class ImageController : Controller
     {
         private PhotoBookContext _myDatabase;
@@ -22,6 +23,20 @@ namespace net_il_mio_fotoalbum.Controllers
             return View("Index", images);
         }
 
+
+        public IActionResult Filter(string userSearch)
+        {
+            List<Image> images;
+
+            if (!string.IsNullOrEmpty(userSearch))
+            {
+                images = _myDatabase.Images.Where(image => image.Title.Contains(userSearch)).Include(image => image.Categories).ToList();
+            } else
+            {
+                images = _myDatabase.Images.Include(image => image.Categories).ToList();
+            }
+            return View("Index", images);
+        }
         //READ
         public IActionResult Details(int id)
         {
